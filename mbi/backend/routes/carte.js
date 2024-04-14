@@ -52,7 +52,14 @@ router.post("/usecards", async (req, res) => {
         card.amount -= amount;
         await card.save();
 
-        return res.status(200).json({ card });
+        // Find the corresponding Offre and add the subtracted amount to its 'creadit' field
+        const offre = await Offre.findOneAndUpdate(
+            { numberr: card.pin }, // Assuming 'numberr' in Offre corresponds to 'pin' in Carte
+            { $inc: { creadit: amount } }, // Increment 'creadit' by the 'amount'
+            { new: true }
+        );
+
+        return res.status(200).json({ card, offre });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal server error", error: error.message });

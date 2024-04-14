@@ -11,6 +11,11 @@ const offreSchema = new mongoose.Schema(
         unique: true,
         required: true,
     },
+    creadit: {
+      type: Number,
+      unique: true,
+      required: true,
+  },
       offre:{
         type: String,
         required:true,

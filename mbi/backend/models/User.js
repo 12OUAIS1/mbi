@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -7,32 +8,35 @@ const userSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        unique: true,
+        required: true,
     },
     lastname: {
         type: String,
-        unique: true,
         required: true,
     },
     number: {
-        type: Number,
+        type: Number, // Change the type to String
         unique: true,
         required: true,
     },
     numberu: {
         type: String,
-        unique: true,
         required: true,
     },
     offre: [{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "List",
     }],
     carte: [{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Carte",
     }],
-});
+    verified: {
+        type: Boolean,
+        default: false,
+    },
+}, { timestamps: true });
 
 module.exports = mongoose.model("User", userSchema);
+
 
